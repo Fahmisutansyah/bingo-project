@@ -24,24 +24,11 @@
       <div class='row d-flex justify-content-center mt-5'>
         <h3 style="color: white">Available rooms:</h3>
       </div>
-      <div class='row d-flex justify-content-center' style="height: 10vh; overflow:scroll">
+      <div class='row d-flex justify-content-center' style="height: 27vh; overflow:scroll">
         <RoomCard v-for='(lobby,index) in lobbies' :key='index' :lobby='lobby' class='col col-sm-3 mx-3 px-0'/>
       </div>
     </div>  
-  <div class="area">
-    <!-- <ul class="circles" style="margin-bottom: 0px;">
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ul> -->
-  </div>
+
 </div>
 </template>
 
