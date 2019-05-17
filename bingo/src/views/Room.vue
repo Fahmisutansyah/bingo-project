@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container room">
       <h2>{{ timer }}</h2>
       <h1>{{ hasil }}</h1>
       {{ random }}
@@ -11,12 +11,23 @@
       </div>
     </div>
     <div class='row d-flex justify-content-center'>
-      <form @submit.prevent="pushNum" v-if="counter < 25">
-          <input type="number" min="0" max="99" required v-model="num">
-          <input type="submit">
-      </form>
+      <b-form @submit.prevent='pushNum'>
+          <b-form-group>
+            <label for="name" style="color: black" class='mb-0'>Number</label>
+            <b-form-input
+              id="number"
+              required
+              v-model='num'
+              type='number'
+              min='1'
+              max='99'
+            >
+            </b-form-input>
+            <b-button type="submit" variant='primary' size='sm' class='mt-2'>Submit</b-button>
+          </b-form-group>
+        </b-form>
+      </div>
     </div>
-  </div>
 </template>
 
 <style>

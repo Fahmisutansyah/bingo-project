@@ -1,6 +1,6 @@
 <template>
   <b-card
-    :header="lobby.title"
+    :header="lobby.name"
     header-text-variant="white"
     header-tag="header"
     :header-bg-variant="variant"
@@ -9,12 +9,13 @@
   >
   <div v-if='lobby' class='container-fluid'>
     <div class='row d-flex justify-content-start'>
-      <h6>Players:  {{lobby.users}}/5</h6>
+      <h6>Players:  {{lobby.players.length}}/5</h6>
     </div>
     <div class='row d-flex justify-content-start'>
       <h6>Status:  {{lobby.status}}</h6>
-    </div> <div class='row d-flex justify-content-start'>
-      <b-button variant='info' v-if='lobby.status !== "playing"'>Join!</b-button>
+    </div> 
+    <div class='row d-flex justify-content-start'>
+      <slot/>
     </div>
   </div>
   </b-card>

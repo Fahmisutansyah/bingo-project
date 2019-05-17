@@ -13,7 +13,7 @@
         </h1>
       </div>
       <div class='row d-flex justify-content-center mt-5'>
-        <b-form @submit.prevent='login'>
+        <b-form @submit.prevent='register'>
           <b-form-group
             label='Username'
             label-for='username'
@@ -46,9 +46,12 @@ export default {
     }
   },
   methods:{
-    login(){
-      console.log('login')
-      this.$router.push('Lobby')
+    register () {
+      localStorage.setItem('username', this.username);
+      this.$store.commit('register', this.username);
+      this.$store.dispatch('getAllRoom');
+      this.username = '';
+      this.$router.push('/lobby');
     }
   }
 };

@@ -5,7 +5,7 @@
         <h2 style="color: white">Create a room!</h2>
       </div>
       <div class='row d-flex justify-content-center'>
-        <b-form @submit.prevent='createNew'>
+        <b-form @submit.prevent='createRoom'>
           <b-form-group>
             <label for="name" style="color: white">Lobby Name:</label>
             <b-form-input
@@ -25,7 +25,9 @@
         <h3 style="color: white">Available rooms:</h3>
       </div>
       <div class='row d-flex justify-content-center' style="height: 27vh; overflow:scroll">
-        <RoomCard v-for='(lobby,index) in lobbies' :key='index' :lobby='lobby' class='col col-sm-3 mx-3 px-0'/>
+        <RoomCard v-for='lobby in rooms' :key='lobby.id' :lobby='lobby' class='col col-sm-3 mx-3 px-0'>
+          <b-button variant='info' v-if='lobby.status !== "playing"' @click.prevent='joinRoom(lobby.id)'>Join!</b-button>
+        </RoomCard>
       </div>
     </div>  
 
@@ -34,29 +36,47 @@
 
 <script>
 import RoomCard from '@/components/RoomCard.vue'
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
+  computed: {
+    ...mapState(['rooms']),
+  },
+  methods: {
+    createRoom () {
+      this.$store.dispatch('createRoom', this.roomname);
+      localStorage.setItem('room', this.roomname);
+      this.roomname = '';
+    },
+    joinRoom (roomId) {
+      this.$store.dispatch('joinRoom', roomId);
+    }
+  },
   components: {
     RoomCard
   },
+  created(){
+    this.$store.dispatch('getAllRoom')
+  },
   data(){
     return {
-      lobbies: [
-        {
-          title: 'Kuy sokin maen',
-          status: 'ready',
-          users: 3
-        },
-        {
-          title: 'Culun lo semua',
-          status: 'ready',
-          users: 3
-        },
-        {
-          title: "HAhahahahaha",
-          status: 'playing',
-          users: 3
-        }
-      ],
+      roomname: '',
+      // lobbies: [
+      //   {
+      //     title: 'Kuy sokin maen',
+      //     status: 'ready',
+      //     users: 3
+      //   },
+      //   {
+      //     title: 'Culun lo semua',
+      //     status: 'ready',
+      //     users: 3
+      //   },
+      //   {
+      //     title: "HAhahahahaha",
+      //     status: 'playing',
+      //     users: 3
+      //   }
+      // ],
       lobbyName: ''
     }
   }
