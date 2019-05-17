@@ -11,7 +11,7 @@
             <b-form-input
               id="name"
               required
-              v-model='lobbyName'
+              v-model='roomname'
               placeholder='Enter lobby name'
             >
             </b-form-input>
@@ -26,7 +26,7 @@
       </div>
       <div class='row d-flex justify-content-center' style="height: 27vh; overflow:scroll">
         <RoomCard v-for='lobby in rooms' :key='lobby.id' :lobby='lobby' class='col col-sm-3 mx-3 px-0'>
-          <b-button variant='info' v-if='lobby.status !== "playing"' @click.prevent='joinRoom(lobby.id)'>Join!</b-button>
+          <b-button variant='info' v-if='lobby.status !== "playing" && lobby.players.length < 5' @click.prevent='joinRoom(lobby.id)'>Join!</b-button>
         </RoomCard>
       </div>
     </div>  
@@ -37,13 +37,32 @@
 <script>
 import RoomCard from '@/components/RoomCard.vue'
 import { mapState, mapMutations, mapActions } from 'vuex';
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 export default {
   computed: {
     ...mapState(['rooms']),
   },
   methods: {
     createRoom () {
-      this.$store.dispatch('createRoom', this.roomname);
+      let angka =[];
+      for (let i = 1; i < 100; i++) {
+            angka.push(i);
+        }
+
+        shuffle(angka);
+
+        console.log(angka);
+      let obj = {
+        roomName: this.roomname,
+        randomNum: angka
+      }
+
+      this.$store.dispatch('createRoom', obj);
       localStorage.setItem('room', this.roomname);
       this.roomname = '';
     },
@@ -55,29 +74,15 @@ export default {
     RoomCard
   },
   created(){
-    this.$store.dispatch('getAllRoom')
+    if (!localStorage.getItem('username')){
+      this.$router.push({path: '/'})
+    }else{
+      this.$store.dispatch('getAllRoom')
+    }
   },
   data(){
     return {
       roomname: '',
-      // lobbies: [
-      //   {
-      //     title: 'Kuy sokin maen',
-      //     status: 'ready',
-      //     users: 3
-      //   },
-      //   {
-      //     title: 'Culun lo semua',
-      //     status: 'ready',
-      //     users: 3
-      //   },
-      //   {
-      //     title: "HAhahahahaha",
-      //     status: 'playing',
-      //     users: 3
-      //   }
-      // ],
-      lobbyName: ''
     }
   }
 }

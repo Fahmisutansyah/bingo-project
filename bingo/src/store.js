@@ -17,6 +17,7 @@ export default new Vuex.Store({
       state.currentPlayer = playerName
     },
     getRooms (state, data) {
+      console.log(data);
       state.rooms = data
       if (localStorage.getItem('idRoom')) {
         let room = state.rooms.find(room => room.id === localStorage.getItem('idRoom'))
@@ -25,13 +26,14 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    createRoom ({ commit, state, dispatch }, roomName) {
+    createRoom ({ commit, state, dispatch }, obj) {
       db
         .collection('rooms')
         .add({
-          name: roomName,
+          name: obj.roomName,
           players: [ localStorage.getItem('username') ],
           winner: '',
+          angka: obj.randomNum,
           createdAt: new Date(),
           status: 'ready'
         })
@@ -67,6 +69,7 @@ export default new Vuex.Store({
       const room = state.rooms.find(room => room.id === roomId)
       newPlayers = room.players
       newPlayers.push(state.currentPlayer)
+      localStorage.setItem('idRoom', roomId)
 
       db
         .collection('rooms')

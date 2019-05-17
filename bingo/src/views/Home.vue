@@ -50,13 +50,19 @@ export default {
       localStorage.setItem('username', this.username);
       this.$store.commit('register', this.username);
       this.$store.dispatch('getAllRoom');
+      var audio = new Audio(`https://storage.cloud.google.com/kartu-lebaran/Kenny_G_-_April_Rain_(hydro.fm).mp3`)
+      audio.loop = true
+      audio.play();
       this.username = '';
       this.$router.push('/lobby');
     }
+  },
+  created(){
   }
 };
 </script>
 <style scoped>
+@import url('https://fonts.googleapis.com/css?family=Modak&display=swap');
 .home {
   width: 100%;  
   height: 100vh;
@@ -75,7 +81,7 @@ h1 span {
   top: 20px;
   display: inline-block;
   animation: bounce .3s ease infinite alternate;
-  font-family: 'Titan One', cursive;
+  font-family: 'Modak', cursive;
   font-size: 80px;
   color: #FFF;
   text-shadow: 0 1px 0 #CCC,
