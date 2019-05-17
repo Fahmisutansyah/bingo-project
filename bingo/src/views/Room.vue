@@ -3,15 +3,34 @@
       <h2>{{ timer }}</h2>
       <h1>{{ hasil }}</h1>
       {{ random }}
-    <div class="row" v-for="(x, i) in 5" :key="i">
-      <div class="col-sm ktk m-1 card text-center" v-for="(y, j) in 5" :key="j" @click="marking(i,j)">{{ arr[i][j] }}</div>
+    <div class='row'>
+      <div class='container' style="padding-left: 250px;padding-right: 250px">
+        <div class="row" v-for="(x, i) in 5" :key="i">
+          <div class="col-sm ktk m-1 card text-center" v-for="(y, j) in 5" :key="j" @click="marking(i,j)" style="height:100px">{{ arr[i][j] }}</div>
+        </div>
+      </div>
     </div>
-    <form @submit.prevent="pushNum" v-if="counter < 25">
-        <input type="number" min="0" max="99" required v-model="num">
-        <input type="submit">
-    </form>
+    <div class='row d-flex justify-content-center'>
+      <form @submit.prevent="pushNum" v-if="counter < 25">
+          <input type="number" min="0" max="99" required v-model="num">
+          <input type="submit">
+      </form>
+    </div>
   </div>
 </template>
+
+<style>
+.ktk {
+    /* background-color: aquamarine; */
+    height: 150px;
+    width: 90px;
+    font-size: 70px;
+}
+.deck{
+  padding-left: 0px;
+  padding-right: 0px
+}
+</style>
 
 <script>
 
@@ -190,11 +209,3 @@ export default {
 };
 </script>
 
-<style>
-.ktk {
-    /* background-color: aquamarine; */
-    height: 150px;
-    width: 90px;
-    font-size: 70px;
-}
-</style>
