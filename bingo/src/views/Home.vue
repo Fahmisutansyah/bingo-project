@@ -52,6 +52,7 @@ export default {
       this.$store.dispatch('getAllRoom');
       var audio = new Audio(`https://storage.cloud.google.com/kartu-lebaran/Kenny_G_-_April_Rain_(hydro.fm).mp3`)
       audio.loop = true
+      audio.volume = 0.5;
       audio.play();
       this.username = '';
       this.$router.push('/lobby');
